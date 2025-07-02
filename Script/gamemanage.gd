@@ -1,8 +1,9 @@
 extends Node
-@onready var gamemanage: CanvasLayer = $"."
-@onready var score_label: Label = $scoreLabel
-@onready var die: Label = $die
+@onready var score_label: Label = $ScoreLabel
 var score = 0
+@onready var game_manage: CanvasLayer = $"."
+
+@onready var die: Label = $Die
 
 
 

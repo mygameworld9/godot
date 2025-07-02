@@ -1,10 +1,10 @@
 extends Area2D
 
 @onready var timer: Timer = $Timer
+#@onready var game_manage: CanvasLayer = %GameManage
 
 @onready var death_wait_time = 0.25 # 定义一个变量来方便修改等待时间
-
-@onready var gamemanage: CanvasLayer = get_node("/root/game/gamemanage")
+@onready var gamemanage: CanvasLayer = get_node("/root/Game/GameManage")
 func _ready():
 	timer.wait_time = death_wait_time # 在 _ready() 中设置 Timer 的等待时间
 	timer.one_shot = true # 确保只触发一次

@@ -1,6 +1,6 @@
 # 例如，这是一个名为 game.gd 的主场景脚本
 extends Node2D # 或者你的主场景根节点的类型
-@onready var mainground: TileMapLayer = $mainground
+@onready var mainground: TileMapLayer = $MainGround
 
 var mouse_hide_timer: Timer
 var mouse_hidden = false
@@ -32,7 +32,7 @@ func _input(event):
 		mouse_hide_timer.start()
 func get_tile_map_data():
 	var mouse_position = get_global_mouse_position()
-	var	 tile_coordinate = mainground.local_to_map(mouse_position)
+	var	tile_coordinate = mainground.local_to_map(mouse_position)
 	var clicked_cell = mainground.local_to_map(mainground.get_local_mouse_position())
 	var data = mainground.get_cell_tile_data(clicked_cell)
 	if data:

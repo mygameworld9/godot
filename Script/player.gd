@@ -15,8 +15,8 @@ var is_jumping = false          # 是否正在跳跃
 var jump_time = 0.0             # 持续按住跳跃键的时间
 var jumps = MAX_JUMP
 @onready var animated_sprite = $AnimatedSprite2D
-@onready var gamemanage: CanvasLayer = $"../gamemanage"
-@onready var mainground: TileMapLayer = $mainground
+@onready var gamemanage: CanvasLayer = $"../GameManage"
+@onready var mainground: TileMapLayer = $"../MainGround"
 func _physics_process(delta):
 	# 如果在地面，重置跳跃状态
 	if is_on_floor():

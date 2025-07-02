@@ -1,6 +1,6 @@
 extends Area2D
 
-@onready var gamemanage: CanvasLayer = $"../gamemanage"
+@onready var gamemanage: CanvasLayer = $"../GameManage"
 const POP_UP_HEIGHT = 5
 const POP_UP_SPEED = 300.0
 func _on_body_entered(_body) :
