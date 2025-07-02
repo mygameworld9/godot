@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://dg26r5l0i6pex"]
+[gd_scene load_steps=14 format=4 uid="uid://dg26r5l0i6pex"]
 
 [ext_resource type="Script" uid="uid://cwaya6pl85prr" path="res://Script/Game.gd" id="1_y4rsg"]
 [ext_resource type="Script" uid="uid://diymnnx0cieka" path="res://Script/GameManage.gd" id="2_36qu8"]
@@ -7,13 +7,17 @@
 [ext_resource type="TileSet" uid="uid://bf414112f23fh" path="res://background/game.tres" id="5_unmu3"]
 [ext_resource type="Script" uid="uid://bxv7lwd36mfff" path="res://Script/Hidden.gd" id="6_36qu8"]
 [ext_resource type="PackedScene" uid="uid://cr5bptorage50" path="res://background/KillZone.tscn" id="6_75sxi"]
+[ext_resource type="Script" uid="uid://b61177x6tcolq" path="res://Script/hidden_ground.gd" id="7_7va0k"]
 [ext_resource type="PackedScene" uid="uid://drcapqhr7ow4d" path="res://background/Slime.tscn" id="7_82lku"]
 [ext_resource type="PackedScene" uid="uid://do6dpapmpo2u0" path="res://background/Coin.tscn" id="8_15l5g"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7u0b5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7va0k"]
-size = Vector2(79, 47)
+size = Vector2(80, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0g5lt"]
+size = Vector2(15, 3)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_y4rsg")
@@ -26,6 +30,7 @@ offset_left = 9.9
 offset_top = 20.0
 offset_right = 37.9
 offset_bottom = 43.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
 text = "123"
 metadata/_edit_use_anchors_ = true
 
@@ -64,6 +69,12 @@ scale = Vector2(1.00143, 1)
 tile_map_data = PackedByteArray("AAA0AP7/AAAIAAAAAAA0AP//AAAIAAAAAAA0AAAAAAAIAAAAAAA1AP7/AAAIAAAAAAA1AP//AAAIAAAAAAA1AAAAAAAIAAAAAAA2AP7/AAAIAAAAAAA2AP//AAAIAAAAAAA2AAAAAAAIAAAAAAA3AP7/AAAIAAAAAAA3AP//AAAIAAAAAAA3AAAAAAAIAAAAAAA4AP7/AAAIAAAAAAA4AP//AAAIAAAAAAA4AAAAAAAIAAAAAAA=")
 tile_set = ExtResource("5_unmu3")
 script = ExtResource("6_36qu8")
+
+[node name="HiddenGround" type="TileMapLayer" parent="."]
+scale = Vector2(1.00143, 1)
+tile_map_data = PackedByteArray("AAAcAP7/AAAAAAIAAAA=")
+tile_set = ExtResource("5_unmu3")
+script = ExtResource("7_7va0k")
 
 [node name="ForeGround" type="TileMapLayer" parent="."]
 z_index = 100
@@ -108,11 +119,23 @@ position = Vector2(873, -19)
 visible = false
 position = Vector2(858, -19)
 
-[node name="hidden_wall" type="Area2D" parent="."]
+[node name="Hidden_wall" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hidden_wall"]
-position = Vector2(873.5, -7.5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hidden_wall"]
+position = Vector2(874, -7)
 shape = SubResource("RectangleShape2D_7va0k")
 
-[connection signal="body_entered" from="hidden_wall" to="Hidden" method="_on_secret_Hidden_body_entered"]
-[connection signal="body_exited" from="hidden_wall" to="Hidden" method="_on_secret_Hidden_body_exited"]
+[node name="Hidden_Coin" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hidden_Coin"]
+position = Vector2(456.5, -16.5)
+shape = SubResource("RectangleShape2D_0g5lt")
+
+[node name="Coin7" parent="." groups=["Coin"] instance=ExtResource("8_15l5g")]
+visible = false
+position = Vector2(456, -34)
+
+[connection signal="body_entered" from="Hidden_wall" to="Hidden" method="_on_secret_Hidden_body_entered"]
+[connection signal="body_exited" from="Hidden_wall" to="Hidden" method="_on_secret_Hidden_body_exited"]
+[connection signal="body_entered" from="Hidden_Coin" to="HiddenGround" method="_on_secret_Hidden2_body_entered"]
+[connection signal="body_exited" from="Hidden_Coin" to="HiddenGround" method="_on_secret_Hidden2_body_exited"]

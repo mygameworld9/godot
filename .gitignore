@@ -1,3 +1,12 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+*.exe
+*.apk
+*.app
+*.zip
+*.pck
+*.wasm
+*.html
+*.godotenv
+# 其他您不希望追踪的导出文件或临时文件

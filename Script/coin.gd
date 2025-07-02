@@ -9,10 +9,8 @@ func _on_body_entered(_body) :
 func pop_up() -> void:
 # 使金币向上弹起一小段距离，然后下落
 	var tween = create_tween()
-	
+	print("233")
 	tween.tween_property(self, "position", position - Vector2(0, POP_UP_HEIGHT), 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-	# 稍作停留，然后落下（通常在 Coin.gd 内部处理）
-	# tween.tween_property(self, "position", position + Vector2(0, POP_UP_HEIGHT * 2), 0.5).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 	# 播放金币弹出音效（假设您有一个 AudioStreamPlayer2D 节点）
 	# $AudioStreamPlayer2D.play()
 	# 金币弹出后，让它在短时间后自动销毁 (如果不是立即拾取)
