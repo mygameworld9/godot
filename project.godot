@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 window/size/mode=3
 
+[global_group]
+
+Surprise="奖励"
+
 [input]
 
 left={
