@@ -5,18 +5,21 @@ const JUMP_VELOCITY = -150.0   # 初始起跳速度，稍微调低点
 const MAX_JUMP_HOLD_TIME = 0.2 # 最大跳跃维持时间（单位：秒）
 const EXTRA_JUMP_FORCE = -1000.0 # 持续按住跳跃键时的额外向上力
 const MAX_JUMP = 2
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
 @onready var head_hitbox: Area2D = $HeadHitbox
 @onready var head_ray: RayCast2D = $HeadRay
 @onready var game: Node2D = $".."
-var coin_spawned_tiles = {}
+@onready var mainground: TileMapLayer = $"../MainGround"
+@onready var animated_sprite = $AnimatedSprite2D
+@onready var gamemanage: CanvasLayer = $"../GameManage"
 @export var poppable_tilemap_layer_index: int = 0 
+
+var coin_spawned_tiles = {}
 var is_jumping = false          # 是否正在跳跃
 var jump_time = 0.0             # 持续按住跳跃键的时间
 var jumps = MAX_JUMP
-@onready var animated_sprite = $AnimatedSprite2D
-@onready var gamemanage: CanvasLayer = $"../GameManage"
-@onready var mainground: TileMapLayer = $"../MainGround"
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
 func _physics_process(delta):
 	# 如果在地面，重置跳跃状态
 	if is_on_floor():
@@ -54,7 +57,7 @@ func _physics_process(delta):
 	# 播放动画
 	if is_on_floor():
 		if direction == 0:
-			animated_sprite.play("idle")  # 如果你写的是 idle 动画，注意拼写
+			animated_sprite.play("idle") 
 		else:
 			animated_sprite.play("run")
 	else:

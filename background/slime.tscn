@@ -37,7 +37,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c500a"]
@@ -49,6 +49,7 @@ script = ExtResource("1_c500a")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_be7o5")
+autoplay = "default"
 
 [node name="killzone" parent="." instance=ExtResource("3_ye2dp")]
 position = Vector2(0, -12)
@@ -65,3 +66,7 @@ target_position = Vector2(-5, 0)
 [node name="RayCastRight" type="RayCast2D" parent="."]
 position = Vector2(0, -6)
 target_position = Vector2(6, 0)
+
+[node name="RayCastdown" type="RayCast2D" parent="."]
+position = Vector2(0, -6)
+target_position = Vector2(0, 6)

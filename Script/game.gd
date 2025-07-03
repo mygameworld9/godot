@@ -19,7 +19,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _input(event):
-	# 监听鼠标移动事件
+	# 监听鼠标移动
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		get_tile_map_data()
 	if event is InputEventMouseMotion:

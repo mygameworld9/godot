@@ -1,15 +1,21 @@
 extends Area2D
 
 @onready var gamemanage: CanvasLayer = $"../GameManage"
-const POP_UP_HEIGHT = 5
-const POP_UP_SPEED = 300.0
+const POP_UP_HEIGHT = 10
+const POP_UP_SPEED = 300
+func _ready() -> void:
+	for node in get_tree().get_nodes_in_group("Coin"):#开局隐藏
+		var collision_shape_node = node.get_node("CollisionShape2D")
+		#collision_shape_node.disabled = false
+		collision_shape_node.set_deferred("disabled", true)
+
 func _on_body_entered(_body) :
 	gamemanage.add_point()
 	queue_free()
 func pop_up() -> void:
 # 使金币向上弹起一小段距离，然后下落
 	var tween = create_tween()
-	print("233")
+	#print("233")
 	tween.tween_property(self, "position", position - Vector2(0, POP_UP_HEIGHT), 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	# 播放金币弹出音效（假设您有一个 AudioStreamPlayer2D 节点）
 	# $AudioStreamPlayer2D.play()
