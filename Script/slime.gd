@@ -36,6 +36,7 @@ func take_damage(amount):
 func die():
 	animated_sprite.play("hit")
 	Engine.time_scale = 1
+	$AudioStreamPlayer2D.play()
 	await animated_sprite.animation_finished
 	queue_free()
 	Engine.time_scale = 1

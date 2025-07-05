@@ -12,8 +12,8 @@ func _ready() -> void:
 
 func _on_body_entered(_body) :
 	gamemanage.add_point()
-	#animation_player.play("pickup")
-	queue_free() 
+	animation_player.play("pickup")
+	#queue_free() 
 func pop_up() -> void:
 # 使金币向上弹起一小段距离，然后下落
 	var tween = create_tween()

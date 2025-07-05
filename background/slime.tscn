@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://drcapqhr7ow4d"]
+[gd_scene load_steps=15 format=3 uid="uid://drcapqhr7ow4d"]
 
 [ext_resource type="Script" uid="uid://beujcf67v32xx" path="res://Script/Slime.gd" id="1_c500a"]
 [ext_resource type="Texture2D" uid="uid://bl53gpvg5mh1y" path="res://assets/sprites/slime_green.png" id="1_ehwcq"]
 [ext_resource type="PackedScene" uid="uid://ckbkjxao0k7io" path="res://Script/killzone_2.tscn" id="3_j6hy1"]
+[ext_resource type="AudioStream" uid="uid://caya4kc4ef5vc" path="res://assets/sounds/hurt.mp3" id="4_42gdy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vghwq"]
 atlas = ExtResource("1_ehwcq")
@@ -110,6 +111,10 @@ position = Vector2(0, -6)
 target_position = Vector2(0, 6)
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_42gdy")
+bus = &"SFX"
 
 [connection signal="body_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
