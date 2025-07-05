@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ckbkjxao0k7io"]
 
-[ext_resource type="Script" uid="uid://bmr4hjbida7in" path="res://killzone_2.gd" id="1_d0lji"]
+[ext_resource type="Script" uid="uid://bmr4hjbida7in" path="res://Script/killzone_2.gd" id="1_d0lji"]
 
 [node name="killzone2" type="Area2D"]
 visibility_layer = 2

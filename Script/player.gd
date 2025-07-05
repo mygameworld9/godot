@@ -20,7 +20,7 @@ const MAX_JUMP = 2
 @onready var game: Node2D = $".."
 @onready var mainground: TileMapLayer = $"../MainGround"
 @onready var gamemanage: CanvasLayer = $"../GameManage"
-@export var attack_power = 3
+@export var attack_power = 1 #攻击力
 
 var is_rolling = false
 var is_invulnerable = false

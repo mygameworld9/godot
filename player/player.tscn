@@ -272,6 +272,7 @@ animations = [{
 radius = 6.0
 
 [node name="player" type="CharacterBody2D"]
+z_index = 5
 script = ExtResource("1_rkbax")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -264,7 +264,8 @@ texture = ExtResource("1_ah2s2")
 
 [resource]
 uv_clipping = true
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 2
+physics_layer_0/collision_mask = 255
 custom_data_layer_0/name = "coin"
 custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_fd14k")

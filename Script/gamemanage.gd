@@ -13,8 +13,8 @@ func spawn_coin(pos: Vector2):
 	coin.global_position = pos
 func point():#计分
 	score_label.text = "当前分数：" + str(score) 
-func add_point():
-	score += 1#添加分数
+func add_point(value):
+	score += value#添加分数
 	score_label.text = "当前分数：" + str(score) 
 func player_die():
 	die.text = "YOU ARE DIE！"#死亡信息
