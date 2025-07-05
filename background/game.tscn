@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://dg26r5l0i6pex"]
+[gd_scene load_steps=15 format=4 uid="uid://dg26r5l0i6pex"]
 
 [ext_resource type="Script" uid="uid://cwaya6pl85prr" path="res://Script/Game.gd" id="1_y4rsg"]
 [ext_resource type="Script" uid="uid://diymnnx0cieka" path="res://Script/GameManage.gd" id="2_36qu8"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://b61177x6tcolq" path="res://Script/hidden_ground.gd" id="7_7va0k"]
 [ext_resource type="PackedScene" uid="uid://drcapqhr7ow4d" path="res://background/Slime.tscn" id="7_82lku"]
 [ext_resource type="PackedScene" uid="uid://do6dpapmpo2u0" path="res://background/Coin.tscn" id="8_15l5g"]
+[ext_resource type="PackedScene" uid="uid://dyktqjx250uge" path="res://Script/music.tscn" id="11_0g5lt"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7u0b5"]
 
@@ -17,7 +18,7 @@
 size = Vector2(80, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0g5lt"]
-size = Vector2(15.6797, 5.0625)
+size = Vector2(14.9999, 5.0625)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_y4rsg")
@@ -49,6 +50,7 @@ theme_override_fonts/font = ExtResource("3_7va0k")
 metadata/_edit_use_anchors_ = true
 
 [node name="Player" parent="." groups=["player"] instance=ExtResource("4_0g5lt")]
+scale = Vector2(0.87907, 0.87907)
 collision_mask = 3
 floor_max_angle = 1.13446
 floor_snap_length = 4.0
@@ -132,12 +134,14 @@ shape = SubResource("RectangleShape2D_7va0k")
 [node name="Hidden_Coin" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hidden_Coin"]
-position = Vector2(456.84, -17)
+position = Vector2(456.5, -17)
 shape = SubResource("RectangleShape2D_0g5lt")
 
 [node name="Coin7" parent="." groups=["Coin"] instance=ExtResource("8_15l5g")]
 visible = false
 position = Vector2(456, -33)
+
+[node name="Music" parent="." instance=ExtResource("11_0g5lt")]
 
 [connection signal="body_entered" from="Hidden_wall" to="Hidden" method="_on_secret_Hidden_body_entered"]
 [connection signal="body_exited" from="Hidden_wall" to="Hidden" method="_on_secret_Hidden_body_exited"]

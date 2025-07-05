@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://drcapqhr7ow4d"]
+[gd_scene load_steps=14 format=3 uid="uid://drcapqhr7ow4d"]
 
 [ext_resource type="Script" uid="uid://beujcf67v32xx" path="res://Script/Slime.gd" id="1_c500a"]
 [ext_resource type="Texture2D" uid="uid://bl53gpvg5mh1y" path="res://assets/sprites/slime_green.png" id="1_ehwcq"]
@@ -20,6 +20,22 @@ region = Rect2(48, 24, 24, 24)
 atlas = ExtResource("1_ehwcq")
 region = Rect2(72, 24, 24, 24)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6hy1"]
+atlas = ExtResource("1_ehwcq")
+region = Rect2(0, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42gdy"]
+atlas = ExtResource("1_ehwcq")
+region = Rect2(24, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y135p"]
+atlas = ExtResource("1_ehwcq")
+region = Rect2(48, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmtwc"]
+atlas = ExtResource("1_ehwcq")
+region = Rect2(72, 48, 24, 24)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_be7o5"]
 animations = [{
 "frames": [{
@@ -38,6 +54,23 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j6hy1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42gdy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y135p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jmtwc")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c500a"]
@@ -49,11 +82,18 @@ script = ExtResource("1_c500a")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_be7o5")
+animation = &"hit"
 autoplay = "default"
 
 [node name="killzone2" parent="." instance=ExtResource("3_j6hy1")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="killzone2"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_c500a")
+
+[node name="HurtBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_c500a")
 
@@ -68,3 +108,8 @@ target_position = Vector2(6, 0)
 [node name="RayCastdown" type="RayCast2D" parent="."]
 position = Vector2(0, -6)
 target_position = Vector2(0, 6)
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

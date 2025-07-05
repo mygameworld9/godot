@@ -6,14 +6,14 @@ var layer_alpha := 1.0
 
 func _ready() -> void:
 	set_process(true)
-func _process(delta: float) -> void:
-	pass
+#func _process(delta: float) -> void:
+	#pass
 func _use_tile_data_runtime_update(_coords: Vector2i) -> bool:
 	return true
 var Flag = 0
 
-func _tile_data_runtime_update(_coords: Vector2i, tile_data: TileData) -> void:
-	pass
+#func _tile_data_runtime_update(_coords: Vector2i, tile_data: TileData) -> void:
+	#pass
 	#tile_data.set_collision_polygons_count(0, 0)
 
 

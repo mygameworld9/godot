@@ -1,6 +1,7 @@
 extends Area2D
-
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var gamemanage: CanvasLayer = $"../GameManage"
+
 const POP_UP_HEIGHT = 10
 const POP_UP_SPEED = 300
 func _ready() -> void:
@@ -11,7 +12,8 @@ func _ready() -> void:
 
 func _on_body_entered(_body) :
 	gamemanage.add_point()
-	queue_free()
+	#animation_player.play("pickup")
+	queue_free() 
 func pop_up() -> void:
 # 使金币向上弹起一小段距离，然后下落
 	var tween = create_tween()

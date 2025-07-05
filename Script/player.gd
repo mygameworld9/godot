@@ -6,7 +6,7 @@ const MAX_JUMP_HOLD_TIME = 0.2
 const EXTRA_JUMP_FORCE = -1000.0
 const MAX_JUMP = 2
 
-@export var ROLL_SPEED_MULTIPLIER = 2.0
+@export var ROLL_SPEED_MULTIPLIER = 1.2
 @export var ROLL_DURATION = 0.8
 @export var ROLL_COLLISION_HEIGHT_MULTIPLIER = 0.5
 
@@ -15,11 +15,12 @@ const MAX_JUMP = 2
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var roll_timer: Timer = $Timer
-@onready var head_hitbox: Area2D = $HeadHitbox
-@onready var head_ray: RayCast2D = $HeadRay
+#@onready var head_hitbox: Area2D = $HeadHitbox
+#@onready var head_ray: RayCast2D = $HeadRay
 @onready var game: Node2D = $".."
 @onready var mainground: TileMapLayer = $"../MainGround"
 @onready var gamemanage: CanvasLayer = $"../GameManage"
+@export var attack_power = 3
 
 var is_rolling = false
 var is_invulnerable = false
@@ -40,17 +41,34 @@ func _ready():
 	if collision_shape and collision_shape.shape is RectangleShape2D:
 		original_collision_shape_extents = collision_shape.shape.extents
 		original_collision_shape_position = collision_shape.position
-	else:
-		push_warning("Main collision_shape is not RectangleShape2D or missing!")
-
 func _physics_process(delta):
 	if is_rolling:
-		var target_speed = (-1 if animated_sprite.flip_h else 1) * SPEED * ROLL_SPEED_MULTIPLIER
-		velocity.x = move_toward(velocity.x, target_speed,delta)  # 改这里，越小加速越慢		if not is_on_floor():
-		velocity.y += gravity * delta
+		# 🎮 允许方向键控制移动和转向
+		var roll_direction = Input.get_axis("left", "right")
+		if roll_direction != 0:
+			animated_sprite.flip_h = (roll_direction < 0)
+			velocity.x = roll_direction * SPEED * ROLL_SPEED_MULTIPLIER
+		else:
+			velocity.x = 0
+
+		if Input.is_action_just_pressed("jump") and jumps > 0:
+			velocity.y = JUMP_VELOCITY
+			jumps -= 1
+			is_jumping = true
+			jump_time = 0.0
+
+		if is_jumping and Input.is_action_pressed("jump") and jump_time < MAX_JUMP_HOLD_TIME:
+			velocity.y += EXTRA_JUMP_FORCE * delta
+			jump_time += delta
+		else:
+			is_jumping = false
+
+		if not is_on_floor():
+			velocity.y += gravity * delta
+
 		move_and_slide()
 		return
-	
+
 	if is_on_floor():
 		is_jumping = false
 		jumps = MAX_JUMP
@@ -61,8 +79,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	if Input.is_action_just_pressed("roll") and is_on_floor() and not is_rolling:
-		print("Roll triggered")
+	if Input.is_action_just_pressed("roll") and not is_rolling:
 		start_roll()
 
 	if Input.is_action_just_pressed("jump") and jumps > 0:
@@ -91,7 +108,7 @@ func _physics_process(delta):
 				animated_sprite.play("run")
 		else:
 			animated_sprite.play("jump")
-	print("播放动画：", animated_sprite.animation)
+	#print("播放动画：", animated_sprite.animation)
 
 	if direction:
 		velocity.x = direction * SPEED
@@ -102,12 +119,10 @@ func _physics_process(delta):
 
 # --- ROLLING ---
 func start_roll():
-	print("Start roll triggered")
-	#print("start_roll() called!")
 	is_rolling = true
 	is_invulnerable = true
 	animated_sprite.play("roll")
-
+	$RollHitbox.set_deferred("Monitoring", true)
 	var current_horizontal_input = Input.get_axis("left", "right")
 	if current_horizontal_input != 0:
 		animated_sprite.flip_h = (current_horizontal_input < 0)
@@ -123,7 +138,7 @@ func wudi():
 func end_roll():
 	is_rolling = false
 	is_invulnerable = false
-
+	$RollHitbox.set_deferred("Monitoring", false)
 	if collision_shape and collision_shape.shape is RectangleShape2D:
 		var rect_shape = collision_shape.shape
 		rect_shape.extents = original_collision_shape_extents

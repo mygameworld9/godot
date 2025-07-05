@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b8cmjj8vq3r8d" path="res://assets/sprites/knight.png" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://7iyadevrv2cr" path="res://Script/Player.gd" id="1_rkbax"]
+[ext_resource type="Script" uid="uid://c07l7ygb3aifv" path="res://player/roll_kill_area.gd" id="3_wnvi2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s7qer"]
 atlas = ExtResource("1_oul6g")
@@ -179,6 +180,11 @@ animations = [{
 "name": &"jump",
 "speed": 5.0
 }, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3c3w1")
@@ -265,16 +271,13 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_boad6"]
 radius = 6.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkbax"]
-size = Vector2(17, 5)
-
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_rkbax")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_g6k8r")
-animation = &"roll"
+animation = &"die"
 autoplay = "idle"
 metadata/_edit_lock_ = true
 
@@ -283,20 +286,18 @@ position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_boad6")
 
 [node name="HeadRay" type="RayCast2D" parent="."]
-visible = false
 position = Vector2(0, -14)
 target_position = Vector2(0, -5)
 
-[node name="HeadHitbox" type="Area2D" parent="."]
-visible = false
+[node name="RollHitbox" type="Area2D" parent="."]
 collision_layer = 4
+script = ExtResource("3_wnvi2")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="HeadHitbox"]
-visible = false
-position = Vector2(-1.5, -16.5)
-shape = SubResource("RectangleShape2D_rkbax")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RollHitbox"]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_boad6")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
-[connection signal="body_entered" from="HeadHitbox" to="." method="_on_head_hitbox_body_entered"]
+[connection signal="body_entered" from="RollHitbox" to="RollHitbox" method="_on_body_entered"]
