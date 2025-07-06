@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://ci2wqq32jmehj"]
 
-[ext_resource type="Script" uid="uid://c3wqmierdybd2" path="res://Script/bosslime.gd" id="1_x2e2c"]
+[ext_resource type="Script" uid="uid://c3wqmierdybd2" path="res://Script/bossslime.gd" id="1_x2e2c"]
 [ext_resource type="Texture2D" uid="uid://bwoec51f6mei0" path="res://assets/sprites/slime_purple.png" id="2_jajdj"]
 [ext_resource type="PackedScene" uid="uid://ckbkjxao0k7io" path="res://Script/killzone_2.tscn" id="3_kj4mm"]
 [ext_resource type="AudioStream" uid="uid://caya4kc4ef5vc" path="res://assets/sounds/hurt.mp3" id="5_2ps4a"]
@@ -110,13 +110,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c500a"]
 size = Vector2(14, 10)
 
-[node name="bosslime" type="Node2D"]
+[node name="bossslime" type="Node2D"]
 script = ExtResource("1_x2e2c")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_2cpp5")
-animation = &"run"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="killzone2" parent="." instance=ExtResource("3_kj4mm")]
@@ -134,12 +134,12 @@ shape = SubResource("RectangleShape2D_c500a")
 [node name="RayCastLeft" type="RayCast2D" parent="."]
 position = Vector2(0, -6)
 target_position = Vector2(-5, 0)
-collision_mask = 258
+collision_mask = 2
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
 position = Vector2(0, -6)
 target_position = Vector2(6, 0)
-collision_mask = 258
+collision_mask = 2
 
 [node name="RayCastdown" type="RayCast2D" parent="."]
 position = Vector2(0, -6)
@@ -152,11 +152,5 @@ one_shot = true
 stream = ExtResource("5_2ps4a")
 bus = &"SFX"
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(5.96046e-07, -6)
-scale = Vector2(0.7, 0.6)
-
 [connection signal="body_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

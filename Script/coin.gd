@@ -1,8 +1,8 @@
 extends Area2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var gamemanage: CanvasLayer = $"../GameManage"
-@onready var gamemanage2: CanvasLayer = $"../../GameManage"
-const POP_UP_HEIGHT = 8
+#@onready var gamemanage: CanvasLayer = $"../GameManage"
+#@onready var gamemanage2: CanvasLayer = $"../../GameManage"
+const POP_UP_HEIGHT = 15
 const POP_UP_SPEED = 300
 func _ready() -> void:
 	for node in get_tree().get_nodes_in_group("Coin"):#开局隐藏
@@ -11,12 +11,9 @@ func _ready() -> void:
 		collision_shape_node.set_deferred("disabled", true)
 
 func _on_body_entered(_body) :
-	if get_node("../GameManage"):
-		#print(233)
-		gamemanage.add_point(1)	
-	elif get_node("../../GameManage"):
-		gamemanage2.add_point(1)
-		#print(456)
+	var gm_nodes = get_tree().get_nodes_in_group("GameManage")
+	if not gm_nodes.is_empty():
+		gm_nodes[0].add_point(1)  # 默认取第一个
 	animation_player.play("pickup")
 	#queue_free() 
 func pop_up() -> void:

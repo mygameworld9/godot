@@ -14,6 +14,8 @@ var can_be_damaged = true
 var is_being_hit = false
 var hit = false
 func _ready():
+	timer.wait_time = 1
+	timer.one_shot = true
 	timer.timeout.connect(func(): can_be_damaged = true)
 func _process(delta):
 	if is_being_hit:
@@ -32,24 +34,30 @@ func _process(delta):
 			animated_sprite.play("idle")
 func _on_HurtBox_area_entered(area):#检测
 	if area.name == "Player" and area.wudi() and can_be_damaged:
-		hit = true
 		#print(area.wudi())
 		timer.start()
 		take_damage(area.attack_power)
 func take_damage(amount):
+	hurtbox.set_deferred("monitoring", false)
+	hurtbox.set_deferred("monitorable", false)
 	hp -= amount
 	is_being_hit = true
 	$AudioStreamPlayer2D.play()
 	animated_sprite.play("hit")
 	await animated_sprite.animation_finished
 	is_being_hit = false
-	hit = false
+	can_be_damaged = false
 	#animated_sprite.play("default")	
 	if hp <= 0:
-		gamemanage.add_point(1)
+		#GlobalGameManager.add_point(1)		
+		gamemanage.add_point(value)
 		set_process(false)
 		queue_free()	
 
 
 func _on_timer_timeout() -> void:
-	Engine.time_scale = 1
+
+	can_be_damaged = true # 重置为可被伤害
+	hurtbox.set_deferred("monitoring", true) 
+	hurtbox.set_deferred("monitorable", true) 
+	#print("怪物无敌时间结束。") #

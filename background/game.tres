@@ -261,6 +261,10 @@ texture = ExtResource("1_ah2s2")
 0:15/0/z_index = 3
 1:1/0 = 0
 1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+11:5/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+2:4/0 = 0
 
 [resource]
 uv_clipping = true

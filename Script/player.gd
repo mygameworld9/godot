@@ -36,12 +36,15 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
 	roll_timer.timeout.connect(_on_roll_timer_timeout)
-	animated_sprite.animation_finished.connect(_on_animation_finished)
+	#animated_sprite.animation_finished.connect(_on_animation_finished)
 
 	if collision_shape and collision_shape.shape is RectangleShape2D:
 		original_collision_shape_extents = collision_shape.shape.extents
 		original_collision_shape_position = collision_shape.position
 func _physics_process(delta):
+	if not is_on_floor():
+		velocity.y += gravity * delta
+		
 	if is_rolling:
 		# 🎮 允许方向键控制移动和转向
 		var roll_direction = Input.get_axis("left", "right")
@@ -63,8 +66,6 @@ func _physics_process(delta):
 		else:
 			is_jumping = false
 
-		if not is_on_floor():
-			velocity.y += gravity * delta
 
 		move_and_slide()
 		return
@@ -76,8 +77,7 @@ func _physics_process(delta):
 
 	gamemanage.point()
 
-	if not is_on_floor():
-		velocity.y += gravity * delta
+
 
 	if Input.is_action_just_pressed("roll") and not is_rolling:
 		start_roll()
@@ -159,7 +159,7 @@ func _on_roll_timer_timeout():
 	if is_rolling:
 		end_roll()
 
-func _on_animation_finished(anim_name: String):
-	if anim_name == "roll":
-		if is_rolling and roll_timer.is_stopped():
-			end_roll()
+#func _on_animation_finished(anim_name: String):
+	#if anim_name == "roll":
+		#if is_rolling and roll_timer.is_stopped():
+			#end_roll()
