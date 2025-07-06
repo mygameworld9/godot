@@ -2,7 +2,7 @@ extends Node2D
 var tps: Array[Vector2] = []
 const SPEED = 60
 var direction = 1
-var hp = 30  # 敌人生命值
+var hp = 1  # 敌人生命值
 var value = hp
 @onready var gamemanage: CanvasLayer = $"../GameManage"
 @onready var ray_cast_right = $RayCastRight
@@ -15,7 +15,7 @@ var value = hp
 @onready var tp: AudioStreamPlayer = $Tp
 @onready var collision_shape: CollisionShape2D = $HurtBox/CollisionShape2D
 @onready var hurt_box: Area2D = $HurtBox
-
+@onready var portal: Area2D = $"../Portal"
 var can_be_damaged = true 
 var is_being_hit = false
 var hit = false
@@ -73,7 +73,9 @@ func take_damage(amount):
 	can_be_damaged = false
 	#animated_sprite.play("default")	
 	if hp <= 0:
+		#if has_node("InteractionPrompt"):
 		#GlobalGameManager.add_point(value)
+		portal.visible = true
 		gamemanage.add_point(value)
 		set_process(false)
 		queue_free()	

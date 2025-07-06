@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://dg26r5l0i6pex"]
+[gd_scene load_steps=47 format=4 uid="uid://dg26r5l0i6pex"]
 
 [ext_resource type="Script" uid="uid://cwaya6pl85prr" path="res://Script/Game.gd" id="1_y4rsg"]
 [ext_resource type="Script" uid="uid://diymnnx0cieka" path="res://Script/GameManage.gd" id="2_36qu8"]
@@ -15,6 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://x5eleqjd81gk" path="res://background/Platfrom.tscn" id="11_unmu3"]
 [ext_resource type="PackedScene" uid="uid://ci2wqq32jmehj" path="res://background/bossslime.tscn" id="13_75sxi"]
 [ext_resource type="PackedScene" uid="uid://barb4lvu5uiou" path="res://background/air.tscn" id="14_82lku"]
+[ext_resource type="Script" uid="uid://cp4hh0ix33aef" path="res://Script/portal.gd" id="16_adp1j"]
+[ext_resource type="PackedScene" uid="uid://clfaay3aslvd1" path="res://background/screen_fade.tscn" id="16_w0h73"]
+[ext_resource type="Texture2D" uid="uid://b8lhfo5ba2r8j" path="res://assets/sprites/Pixeldoors1.png" id="17_w0h73"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7u0b5"]
 
@@ -61,6 +64,179 @@ _data = {
 &"RESET": SubResource("Animation_82lku"),
 &"move": SubResource("Animation_75sxi")
 }
+
+[sub_resource type="Animation" id="Animation_4w1su"]
+resource_name = "fade_to_black"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(100, 100, 100, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0r26a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mla4g"]
+resource_name = "fade_from_black"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mla4g"]
+_data = {
+&"RESET": SubResource("Animation_0r26a"),
+&"fade_from_black": SubResource("Animation_mla4g"),
+&"fade_to_black": SubResource("Animation_4w1su")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yn3ww"]
+atlas = ExtResource("17_w0h73")
+region = Rect2(43, 102, 37, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loe74"]
+atlas = ExtResource("17_w0h73")
+region = Rect2(80, 102, 37, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_appig"]
+atlas = ExtResource("17_w0h73")
+region = Rect2(117, 102, 37, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_biort"]
+atlas = ExtResource("17_w0h73")
+region = Rect2(154, 102, 37, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2srl"]
+atlas = ExtResource("17_w0h73")
+region = Rect2(265, 102, 37, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrh2b"]
+atlas = ExtResource("17_w0h73")
+region = Rect2(302, 102, 37, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ao0o"]
+atlas = ExtResource("17_w0h73")
+region = Rect2(339, 102, 37, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1veu"]
+atlas = ExtResource("17_w0h73")
+region = Rect2(376, 102, 37, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x42jj"]
+atlas = ExtResource("17_w0h73")
+region = Rect2(487, 102, 37, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5p01"]
+atlas = ExtResource("17_w0h73")
+region = Rect2(524, 102, 37, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aff2i"]
+atlas = ExtResource("17_w0h73")
+region = Rect2(561, 102, 37, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylblt"]
+atlas = ExtResource("17_w0h73")
+region = Rect2(598, 102, 37, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2iayf"]
+atlas = ExtResource("17_w0h73")
+region = Rect2(709, 102, 37, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2p3o5"]
+atlas = ExtResource("17_w0h73")
+region = Rect2(746, 102, 37, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kf7tm"]
+atlas = ExtResource("17_w0h73")
+region = Rect2(783, 102, 37, 102)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s6pqx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yn3ww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loe74")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_appig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_biort")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2srl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrh2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ao0o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1veu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x42jj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5p01")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aff2i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ylblt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2iayf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2p3o5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kf7tm")
+}],
+"loop": false,
+"name": &"open",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_36mw5"]
+size = Vector2(21, 16.355)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_adp1j"]
+size = Vector2(12.5, 12)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_y4rsg")
@@ -328,8 +504,50 @@ position = Vector2(1786, 33)
 scale = Vector2(3.64822, 3.53)
 metadata/_edit_lock_ = true
 
+[node name="ScreenFade" parent="." instance=ExtResource("16_w0h73")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenFade"]
+libraries = {
+&"": SubResource("AnimationLibrary_mla4g")
+}
+
+[node name="Portal" type="Area2D" parent="."]
+visible = false
+position = Vector2(1617, -10)
+scale = Vector2(0.611434, 0.611434)
+script = ExtResource("16_adp1j")
+target_portal_path = NodePath("../Portal2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Portal"]
+position = Vector2(7, -23)
+sprite_frames = SubResource("SpriteFrames_s6pqx")
+animation = &"open"
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Portal"]
+position = Vector2(0.5, -8.1775)
+shape = SubResource("RectangleShape2D_36mw5")
+metadata/_edit_lock_ = true
+
+[node name="Portal2" type="Area2D" parent="."]
+position = Vector2(101, 16)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Portal2"]
+position = Vector2(-1.99999, -14)
+scale = Vector2(0.623436, 0.623436)
+sprite_frames = SubResource("SpriteFrames_s6pqx")
+animation = &"open"
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Portal2"]
+position = Vector2(-6.25, -5)
+shape = SubResource("RectangleShape2D_adp1j")
+metadata/_edit_lock_ = true
+
 [connection signal="timeout" from="bossslime/Tptime" to="bossslime" method="_on_tptime_timeout"]
 [connection signal="body_entered" from="Hidden_wall" to="Hidden" method="_on_secret_Hidden_body_entered"]
 [connection signal="body_exited" from="Hidden_wall" to="Hidden" method="_on_secret_Hidden_body_exited"]
 [connection signal="body_entered" from="Hidden_Coin" to="HiddenGround" method="_on_secret_Hidden2_body_entered"]
 [connection signal="body_exited" from="Hidden_Coin" to="HiddenGround" method="_on_secret_Hidden2_body_exited"]
+[connection signal="body_entered" from="Portal" to="Portal" method="_on_body_entered"]
+[connection signal="body_exited" from="Portal" to="Portal" method="_on_body_exited"]
