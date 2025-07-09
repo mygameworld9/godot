@@ -2,7 +2,7 @@ extends Node2D
 var tps: Array[Vector2] = []
 const SPEED = 60
 var direction = 1
-var hp = 1  # 敌人生命值
+var hp = 10  # 敌人生命值
 var value = hp
 @onready var gamemanage: CanvasLayer = $"../GameManage"
 @onready var ray_cast_right = $RayCastRight
@@ -19,7 +19,7 @@ var value = hp
 var can_be_damaged = true 
 var is_being_hit = false
 var hit = false
-var can_teleport = false
+var can_teleport = true
 var is_active = false
 func _ready():
 	set_active(false)
@@ -110,10 +110,14 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	set_active(false)
 func set_active(active_state: bool):
 	is_active = active_state
-	animated_sprite.visible = active_state # 隐藏/显示精灵
-	collision_shape.disabled = not active_state # 禁用/启用碰撞
-	hurt_box.monitoring = active_state # 启用/禁用 HurtBox 监听
-	hurt_box.monitorable = active_state # 启用/禁用 HurtBox 被监听
+	animated_sprite.visible = active_state 
+	collision_shape.disabled = not active_state 
+	hurt_box.monitoring = active_state 
+	hurt_box.monitorable = active_state 
 
-	set_physics_process(active_state) # 禁用 _physics_process 循环
-	set_process(active_state) # 禁用 _process 循环 
+	set_physics_process(active_state) 
+	set_process(active_state) 
+	
+	if active_state:
+		can_teleport = false
+		tptime.start()  # 延迟允许瞬移

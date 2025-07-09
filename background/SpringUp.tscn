@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbi40f4aq742k"]
+
+[ext_resource type="Script" uid="uid://bfwtwiyd00pxg" path="res://Script/spring.gd" id="1_i60qe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvxhv"]
+size = Vector2(17, 16)
+
+[node name="SpringUp" type="Area2D"]
+script = ExtResource("1_i60qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_hvxhv")
+
+[node name="up" type="RayCast2D" parent="."]
+position = Vector2(0, -11)
+scale = Vector2(0.285171, 0.534514)
+target_position = Vector2(0, -9.35429)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

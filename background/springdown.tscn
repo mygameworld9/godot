@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyu8xjwclugca"]
+
+[ext_resource type="Script" uid="uid://dwk2bhvj8sd7h" path="res://Script/springdown.gd" id="1_i7kjr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvxhv"]
+size = Vector2(17, 16)
+
+[node name="Springdown" type="Area2D"]
+script = ExtResource("1_i7kjr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_hvxhv")
+
+[node name="down" type="RayCast2D" parent="."]
+position = Vector2(0, -6)
+scale = Vector2(0.285171, 0.534514)
+target_position = Vector2(0, 11.2251)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
