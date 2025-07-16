@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://dg26r5l0i6pex"]
+[gd_scene load_steps=50 format=4 uid="uid://dg26r5l0i6pex"]
 
 [ext_resource type="Script" uid="uid://cwaya6pl85prr" path="res://Script/Game.gd" id="1_y4rsg"]
 [ext_resource type="Script" uid="uid://diymnnx0cieka" path="res://Script/GameManage.gd" id="2_36qu8"]
@@ -18,8 +18,6 @@
 [ext_resource type="Script" uid="uid://cp4hh0ix33aef" path="res://Script/portal.gd" id="16_adp1j"]
 [ext_resource type="PackedScene" uid="uid://clfaay3aslvd1" path="res://background/screen_fade.tscn" id="16_w0h73"]
 [ext_resource type="Texture2D" uid="uid://b8lhfo5ba2r8j" path="res://assets/sprites/Pixeldoors1.png" id="17_w0h73"]
-[ext_resource type="PackedScene" uid="uid://4p4yvxe34ltg" path="res://background/Spring.tscn" id="19_s6pqx"]
-[ext_resource type="PackedScene" uid="uid://dyu8xjwclugca" path="res://background/springdown.tscn" id="20_36mw5"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7u0b5"]
 
@@ -555,7 +553,7 @@ shape = SubResource("RectangleShape2D_36mw5")
 metadata/_edit_lock_ = true
 
 [node name="Portal2" type="Area2D" parent="."]
-position = Vector2(-739, -96)
+position = Vector2(-750, -130)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Portal2"]
 position = Vector2(-1.99999, -14)
@@ -588,12 +586,6 @@ metadata/_edit_lock_ = true
 visible = false
 position = Vector2(-664, -131)
 metadata/_edit_lock_ = true
-
-[node name="Sprintup" parent="." instance=ExtResource("19_s6pqx")]
-position = Vector2(87, 9)
-
-[node name="Springdown" parent="." instance=ExtResource("20_36mw5")]
-position = Vector2(10, -66)
 
 [connection signal="timeout" from="bossslime/Tptime" to="bossslime" method="_on_tptime_timeout"]
 [connection signal="body_entered" from="Hidden_wall" to="Hidden" method="_on_secret_Hidden_body_entered"]

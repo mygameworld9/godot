@@ -12,5 +12,5 @@ func _on_body_entered(body):
 		if body.has_method("apply_bounce"):
 			if down.is_colliding():
 				fx = 3
-			print(fx)
-			body.apply_bounce(bounce_direction.normalized() * bounce_force,fx)
+			#print(fx)
+			body.apply_bounce(bounce_direction.normalized() * bounce_force)
